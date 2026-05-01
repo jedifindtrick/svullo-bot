@@ -2,17 +2,20 @@
 
 cd /app
 
-# create venv if it doesn't exist
+# clone if not exists
+if [ ! -d ".git" ]; then
+    git clone https://github.com/jedifindtrick/svullo-bot.git .
+else
+    git pull origin main
+fi
+
 if [ ! -d "venv" ]; then
     python -m venv venv
 fi
 
-# activate venv
 source venv/bin/activate
 
-# install requirements
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# run bot
 python disc_svullo.py
