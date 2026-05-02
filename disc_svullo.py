@@ -11,7 +11,7 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # skit som tydligen behövs
 intents = discord.Intents.default()
 intents.message_content = True # Behövs tydligen för att kunna läsa meddelanden :shrug:
-bot = commands.Bot(command_prefix="/", intents=intents) # sätter bara upp kommandoprefix osv
+bot = commands.Bot(command_prefix="!", intents=intents) # sätter bara upp kommandoprefix osv
 intents.members = True
 # Ladda in svullogrejer så de kan hämtas senare
 class SvulloData:
@@ -45,7 +45,7 @@ async def hello(ctx):
 
 @bot.command()
 async def huh(ctx):
-    await ctx.send("Nä nu jävlar! Hovmästaren svarar endast till: /tyst, /rant, /nej, /kaos, /stick")
+    await ctx.send("Nä nu jävlar! Hovmästaren svarar endast till: !tyst, !rant, !nej, !kaos, !stick")
 
 @bot.command()
 async def stick(ctx):
@@ -88,8 +88,11 @@ async def tyst(ctx):
         return
 
     chosen = random.choice(members)
-    tystObject = svullo.random_item("tyst")
+    #tystObject = svullo.random_item("tyst")
 
-    await ctx.send(f"{chosen.mention}{tystObject}")
+    await ctx.send(
+        content=f"{chosen.mention}",
+        file=discord.File("svullo-sta.gif")
+    )
 
 bot.run(TOKEN)
